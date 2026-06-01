@@ -2,13 +2,15 @@ import pandas as pd
 from sqlalchemy import create_engine
 import os
 from dotenv import load_dotenv
-
-DATA_FOLDER = r"C:\Users\Viggo\Py\Learning Project\da_projects\Ecom-Project\data"
+from pathlib import Path
 
 load_dotenv()
 SERVER = os.environ.get("DB_SERVER")
 DATABASE = os.environ.get("DB_NAME")
 DRIVER = os.environ.get("DB_DRIVER")
+PATH_STRING = os.environ.get("FILE_PATH")
+
+DATA_FOLDER = Path(PATH_STRING) / "data"
 
 connection_string = f"mssql+pyodbc://@{SERVER}/{DATABASE}?driver={DRIVER}&trusted_connection=yes"
 
@@ -26,11 +28,9 @@ files_to_import = {
 }
 
 for table, csv_file in files_to_import.items():
-    csv_path = os.path.join(DATA_FOLDER, csv_file)
-
+    csv_path = DATA_FOLDER / csv_file
     df = pd.read_csv(csv_path)
-
-    df = df.to_sql(table, con=engine, if_exists='replace', index=False, chunksize=1000)
+    df.to_sql(table, con=engine, if_exists='replace', index=False, chunksize=1000)
 
 print("Datasets have succesffully imported into SQL Server.")
     
