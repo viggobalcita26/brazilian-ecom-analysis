@@ -1,4 +1,3 @@
-USE OlistEcom;
 
 WITH revenue AS (
     SELECT 

@@ -1,3 +1,4 @@
+
 WITH birth_month AS (
     SELECT
     c.customer_unique_id,
