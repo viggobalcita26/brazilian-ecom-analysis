@@ -1,4 +1,3 @@
-USE OlistEcom;
 
 SELECT
     o1.product_id AS product_a,
