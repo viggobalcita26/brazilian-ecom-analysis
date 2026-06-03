@@ -11,7 +11,7 @@ SELECT
     YEAR(o.order_purchase_timestamp) AS year,
     MONTH(o.order_purchase_timestamp) AS month, 
     COUNT(o.order_id) AS total_orders,
-    SUM(r.total_revenue) AS total_revenue,
+    CAST(SUM(r.total_revenue) AS DECIMAL (18,2)) AS total_revenue,
     COUNT(DISTINCT c.customer_unique_id) AS unique_customer_count
 FROM orders AS o
 JOIN revenue AS r
